@@ -2,42 +2,41 @@
 import { ref, onMounted } from 'vue'
 
 // Типы для пользователя
-interface TelegramUser {
-  id: number;
-  first_name: string;
-  last_name?: string;
-  username?: string;
-  language_code?: string;
-  is_premium?: boolean;
-}
+// interface TelegramUser {
+//   id: number;
+//   first_name: string;
+//   last_name?: string;
+//   username?: string;
+//   language_code?: string;
+//   is_premium?: boolean;
+// }
 
-const user = ref<TelegramUser | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
-async function authenticateWithTelegram(initData: string) {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/telegram`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ initData }),
-    })
+// async function authenticateWithTelegram(initData: string) {
+//   try {
+//     const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/telegram`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ initData }),
+//     })
 
-    const data = await res.json()
+//     const data = await res.json()
 
-    if (!res.ok) {
-      throw new Error(data.error || 'Authentication failed')
-    }
+//     if (!res.ok) {
+//       throw new Error(data.error || 'Authentication failed')
+//     }
 
-    user.value = data.user
-  } catch (err: any) {
-    error.value = err.message
-  } finally {
-    loading.value = false
-  }
-}
+//     user.value = data.user
+//   } catch (err: any) {
+//     error.value = err.message
+//   } finally {
+//     loading.value = false
+//   }
+// }
 const tg = window.Telegram?.WebApp
 const first_name = ref('')
 const id = ref('')
