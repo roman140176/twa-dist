@@ -48,6 +48,7 @@ onMounted(() => {
     first_name.value = tg?.initDataUnsafe.user?.first_name
     id.value = tg?.initDataUnsafe.user?.id
     username.value = tg?.initDataUnsafe.user?.username
+    loading.value = false;
   },1000)
 })
 </script>
