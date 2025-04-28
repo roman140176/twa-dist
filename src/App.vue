@@ -43,9 +43,9 @@ onMounted(() => {
   let initData: string | null = null
 
   // Пытаемся взять initData из Telegram WebApp API
-  if (window.Telegram?.WebApp?.initData) {
+  if (window.Telegram?.WebApp) {
     window.Telegram.WebApp.ready()
-    initData = window.Telegram.WebApp.initData
+    initData = window.Telegram.WebApp.initDataUnsafe
   } else {
     // Иначе берём из URL-параметров (tgWebAppData или initData)
     const params = new URLSearchParams(window.location.search)
@@ -56,7 +56,7 @@ onMounted(() => {
     authenticateWithTelegram(initData)
   } else {
     loading.value = false
-    error.value = 'No initData provided. Please open this app from Telegram.'
+    error.value = 'No initData provided. Please open this app from Telegram!'
   }
 })
 </script>
