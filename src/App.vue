@@ -54,7 +54,7 @@ onMounted(() => {
   }
 
   if (initData) {
-    authenticateWithTelegram(initData)
+    loading.value = true;
   } else {
     loading.value = false
     error.value = 'No initData provided. Please open this app from Telegram!'
