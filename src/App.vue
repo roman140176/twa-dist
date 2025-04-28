@@ -41,9 +41,10 @@ async function authenticateWithTelegram(initData: string) {
 
 onMounted(() => {
   let initData: string | null = null
-
+  loading.value = true;
   // Пытаемся взять initData из Telegram WebApp API
-  if (window.Telegram?.WebApp) {
+  setTimeout(() => {
+    if (window.Telegram?.WebApp) {
     window.Telegram.WebApp.ready()
     initData = window.Telegram.WebApp.initDataUnsafe
   } else {
@@ -58,6 +59,7 @@ onMounted(() => {
     loading.value = false
     error.value = 'No initData provided. Please open this app from Telegram!'
   }
+  },1000)
 })
 </script>
 
