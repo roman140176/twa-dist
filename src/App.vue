@@ -38,27 +38,17 @@ async function authenticateWithTelegram(initData: string) {
     loading.value = false
   }
 }
-
+const tg = window.Telegram?.WebApp
+const first_name = ref('')
+const id = ref('')
+const username = ref('')
 onMounted(() => {
-  let initData: string | null = null
   loading.value = true;
   // Пытаемся взять initData из Telegram WebApp API
   setTimeout(() => {
-    if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.ready()
-    initData = window.Telegram.WebApp.initDataUnsafe
-  } else {
-    // Иначе берём из URL-параметров (tgWebAppData или initData)
-    const params = new URLSearchParams(window.location.search)
-    initData = params.get('tgWebAppData') || params.get('initData')
-  }
-
-  if (initData) {
-    loading.value = true;
-  } else {
-    loading.value = false
-    error.value = 'No initData provided. Please open this app from Telegram!'
-  }
+    first_name.value = tg?.initDataUnsafe.user?.first_name
+    id.value = tg?.initDataUnsafe.user?.id
+    username.value = tg?.initDataUnsafe.user?.username
   },1000)
 })
 </script>
@@ -73,9 +63,9 @@ onMounted(() => {
   </div>
 
   <div v-else>
-    <h1>Добро пожаловать, {{ user?.first_name }}!</h1>
-    <p>ID пользователя: {{ user?.id }}</p>
-    <p>Username: @{{ user?.username }}</p>
+    <h1>Добро пожаловать, {{ first_name }}!</h1>
+    <p>ID пользователя: {{ id }}</p>
+    <p>Username: @{{username }}</p>
   </div>
 </template>
 
